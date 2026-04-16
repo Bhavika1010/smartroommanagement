@@ -4,7 +4,7 @@ const Booking = require('../models/Booking');
 const Room = require('../models/Room');
 const { protect, restrictTo } = require('../middleware/auth');
 
-// Conflict detection helper
+
 const checkConflict = async (roomId, date, startTime, endTime, excludeBookingId = null) => {
   const bookingDate = new Date(date);
   bookingDate.setHours(0, 0, 0, 0);
@@ -31,9 +31,7 @@ const checkConflict = async (roomId, date, startTime, endTime, excludeBookingId 
   return conflict;
 };
 
-// @route   GET /api/bookings/my
-// @desc    Get current user's bookings
-// @access  Private
+
 router.get('/my', protect, async (req, res) => {
   try {
     const bookings = await Booking.find({ requestedBy: req.user._id })
@@ -45,9 +43,7 @@ router.get('/my', protect, async (req, res) => {
   }
 });
 
-// @route   GET /api/bookings
-// @desc    Get all bookings (admin)
-// @access  Admin
+
 router.get('/', protect, restrictTo('admin'), async (req, res) => {
   try {
     const { status, roomId } = req.query;
@@ -66,9 +62,7 @@ router.get('/', protect, restrictTo('admin'), async (req, res) => {
   }
 });
 
-// @route   GET /api/bookings/room/:roomId
-// @desc    Get bookings for a specific room (for availability display)
-// @access  Private
+
 router.get('/room/:roomId', protect, async (req, res) => {
   try {
     const { date } = req.query;
@@ -92,9 +86,7 @@ router.get('/room/:roomId', protect, async (req, res) => {
   }
 });
 
-// @route   POST /api/bookings
-// @desc    Create a booking request
-// @access  Private
+
 router.post('/', protect, async (req, res) => {
   try {
     const { roomId, title, description, date, startTime, endTime, attendees } = req.body;
@@ -103,12 +95,12 @@ router.post('/', protect, async (req, res) => {
       return res.status(400).json({ message: 'Please fill all required fields.' });
     }
 
-    // Validate time range
+    
     if (startTime >= endTime) {
       return res.status(400).json({ message: 'End time must be after start time.' });
     }
 
-    // Validate date is not in the past
+   
     const bookingDate = new Date(date);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -116,20 +108,20 @@ router.post('/', protect, async (req, res) => {
       return res.status(400).json({ message: 'Cannot book a room for a past date.' });
     }
 
-    // Check room exists
+   
     const room = await Room.findById(roomId);
     if (!room || !room.isActive) {
       return res.status(404).json({ message: 'Room not found or unavailable.' });
     }
 
-    // Check attendees vs capacity
+    
     if (attendees && attendees > room.capacity) {
       return res.status(400).json({
         message: `Attendee count (${attendees}) exceeds room capacity (${room.capacity}).`
       });
     }
 
-    // Conflict detection
+    
     const conflict = await checkConflict(roomId, date, startTime, endTime);
     const hasConflict = !!conflict;
 
@@ -159,9 +151,7 @@ router.post('/', protect, async (req, res) => {
   }
 });
 
-// @route   PATCH /api/bookings/:id/status
-// @desc    Approve or reject a booking
-// @access  Admin
+
 router.patch('/:id/status', protect, restrictTo('admin'), async (req, res) => {
   try {
     const { status, adminNote } = req.body;
@@ -179,7 +169,7 @@ router.patch('/:id/status', protect, restrictTo('admin'), async (req, res) => {
       return res.status(400).json({ message: 'Only pending bookings can be reviewed.' });
     }
 
-    // If approving, check for conflicts one more time
+    
     if (status === 'approved') {
       const conflict = await checkConflict(
         booking.room,
@@ -215,9 +205,7 @@ router.patch('/:id/status', protect, restrictTo('admin'), async (req, res) => {
   }
 });
 
-// @route   DELETE /api/bookings/:id
-// @desc    Cancel a booking (own bookings only, or admin)
-// @access  Private
+
 router.delete('/:id', protect, async (req, res) => {
   try {
     const booking = await Booking.findById(req.params.id);
@@ -225,7 +213,7 @@ router.delete('/:id', protect, async (req, res) => {
       return res.status(404).json({ message: 'Booking not found.' });
     }
 
-    // Only owner or admin can cancel
+   
     if (booking.requestedBy.toString() !== req.user._id.toString() && req.user.role !== 'admin') {
       return res.status(403).json({ message: 'Not authorized to cancel this booking.' });
     }

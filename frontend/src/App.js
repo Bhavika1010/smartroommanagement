@@ -4,7 +4,7 @@ import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import Navbar from './components/Navbar';
 
-// Pages
+
 import Landing      from './pages/Landing';
 import Login        from './pages/Login';
 import Dashboard    from './pages/Dashboard';
@@ -26,11 +26,11 @@ function App() {
     <BrowserRouter>
       <AuthProvider>
         <Routes>
-          {/* Public routes */}
+        
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />
 
-          {/* Protected routes — all logged-in users */}
+        
           <Route
             path="/dashboard"
             element={
@@ -64,7 +64,7 @@ function App() {
             }
           />
 
-          {/* Admin-only routes */}
+         
           <Route
             path="/admin/rooms"
             element={
@@ -82,7 +82,7 @@ function App() {
             }
           />
 
-          {/* Fallback */}
+          
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </AuthProvider>

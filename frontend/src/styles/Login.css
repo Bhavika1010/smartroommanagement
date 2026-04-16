@@ -1,11 +1,11 @@
-/* Login.css */
+
 .login-page {
   min-height: 100vh;
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
 
-/* Left panel */
+
 .login-left {
   background: linear-gradient(145deg, var(--orange-500) 0%, var(--orange-600) 100%);
   padding: 60px 56px;
@@ -84,7 +84,7 @@
   flex-shrink: 0;
 }
 
-/* Right panel */
+
 .login-right {
   display: flex;
   align-items: center;
@@ -119,7 +119,7 @@
   margin-top: 8px;
 }
 
-/* Demo credentials */
+
 .demo-creds {
   margin-top: 24px;
   padding-top: 20px;

@@ -213,7 +213,7 @@ const AdminRooms = () => {
         </div>
       )}
 
-      {/* Add/Edit Modal */}
+      
       <Modal
         isOpen={modal.open}
         onClose={closeModal}
@@ -272,7 +272,7 @@ const AdminRooms = () => {
                 Add
               </button>
             </div>
-            {/* Suggestions */}
+            
             <div className="amenity-suggestions">
               {AMENITY_SUGGESTIONS.filter(s => !form.amenities.includes(s)).map(s => (
                 <button key={s} type="button" className="amenity-suggestion-btn" onClick={() => addAmenity(s)}>
@@ -315,7 +315,7 @@ const AdminRooms = () => {
         </form>
       </Modal>
 
-      {/* Delete confirm modal */}
+     
       <Modal isOpen={!!deleteConfirm} onClose={() => setDC(null)} title="Delete Room" size="sm">
         <p style={{ color: 'var(--gray-600)', marginBottom: 20 }}>
           Are you sure you want to delete this room? This action cannot be undone.

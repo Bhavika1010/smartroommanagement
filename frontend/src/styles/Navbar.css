@@ -1,4 +1,4 @@
-/* Navbar.css */
+
 .navbar {
   position: sticky;
   top: 0;
@@ -151,7 +151,7 @@
   border-color: transparent;
 }
 
-/* Mobile hamburger */
+
 .nav-toggle {
   display: none;
   background: none;

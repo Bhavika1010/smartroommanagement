@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { MdListAlt } from 'react-icons/md';
 import api from '../utils/api';
 import BookingRow from '../components/BookingRow';
 import Modal from '../components/Modal';
@@ -54,7 +55,7 @@ const AdminBookings = () => {
     try {
       await api.patch(`/bookings/${rejectModal.id}/status`, {
         status: 'rejected',
-        adminNote: rejectNote
+        adminNote: rejectNote,
       });
       flash('Booking rejected.');
       setRM({ open: false, id: null });
@@ -68,6 +69,7 @@ const AdminBookings = () => {
     acc[b.status] = (acc[b.status] || 0) + 1;
     return acc;
   }, {});
+
   const totalCount = bookings.length;
 
   return (
@@ -79,7 +81,7 @@ const AdminBookings = () => {
         </div>
       </div>
 
-      {/* Filters */}
+      
       <div style={{ display: 'flex', gap: 8, marginBottom: 20, flexWrap: 'wrap' }}>
         {[
           { val: '',          label: `All (${totalCount})` },
@@ -105,9 +107,13 @@ const AdminBookings = () => {
         <div className="loading-wrapper"><div className="spinner" /></div>
       ) : bookings.length === 0 ? (
         <div className="empty-state">
-          <p style={{ fontSize: '2.5rem' }}>📋</p>
-          <h3>No bookings found</h3>
-          <p>{filter ? `No ${filter} bookings at this time.` : 'No booking requests have been made yet.'}</p>
+          <MdListAlt size={52} color="#d1d5db" />
+          <h3 style={{ marginTop: 12 }}>No bookings found</h3>
+          <p>
+            {filter
+              ? `No ${filter} bookings at this time.`
+              : 'No booking requests have been made yet.'}
+          </p>
         </div>
       ) : (
         <div className="table-wrapper">
@@ -137,7 +143,6 @@ const AdminBookings = () => {
         </div>
       )}
 
-      {/* Reject modal */}
       <Modal
         isOpen={rejectModal.open}
         onClose={() => setRM({ open: false, id: null })}
@@ -156,7 +161,10 @@ const AdminBookings = () => {
           />
         </div>
         <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end' }}>
-          <button className="btn btn-secondary" onClick={() => setRM({ open: false, id: null })}>
+          <button
+            className="btn btn-secondary"
+            onClick={() => setRM({ open: false, id: null })}
+          >
             Cancel
           </button>
           <button className="btn btn-danger" onClick={handleReject}>

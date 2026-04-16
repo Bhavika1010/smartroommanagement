@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { MdInbox } from 'react-icons/md';
 import api from '../utils/api';
 import BookingRow from '../components/BookingRow';
 
@@ -51,7 +52,7 @@ const MyBookings = () => {
         </div>
       </div>
 
-      {/* Quick filter tabs */}
+      {/* Filter tabs */}
       <div style={{ display: 'flex', gap: 8, marginBottom: 20, flexWrap: 'wrap' }}>
         {[
           { val: '',          label: `All (${bookings.length})` },
@@ -77,9 +78,13 @@ const MyBookings = () => {
         <div className="loading-wrapper"><div className="spinner" /></div>
       ) : filtered.length === 0 ? (
         <div className="empty-state">
-          <p style={{ fontSize: '2.5rem' }}>📭</p>
-          <h3>No bookings found</h3>
-          <p>{filter ? `No ${filter} bookings.` : 'You have not made any booking requests yet.'}</p>
+          <MdInbox size={52} color="#d1d5db" />
+          <h3 style={{ marginTop: 12 }}>No bookings found</h3>
+          <p>
+            {filter
+              ? `No ${filter} bookings.`
+              : 'You have not made any booking requests yet.'}
+          </p>
         </div>
       ) : (
         <div className="table-wrapper">

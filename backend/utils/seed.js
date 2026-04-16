@@ -9,14 +9,14 @@ dotenv.config();
 const seed = async () => {
   try {
     await mongoose.connect(process.env.MONGODB_URI);
-    console.log('✅ Connected to MongoDB');
+    console.log('Connected to MongoDB');
 
-    // Clear existing data
+   
     await User.deleteMany({});
     await Room.deleteMany({});
     console.log('🗑️  Cleared existing data');
 
-    // Create users
+    
     const users = [
       {
         name: 'Admin User',
@@ -73,7 +73,7 @@ const seed = async () => {
       }
     ];
 
-    // Hash passwords manually (pre-save hook will handle it)
+   
     const createdUsers = await User.insertMany(
       await Promise.all(users.map(async (u) => ({
         ...u,
@@ -82,7 +82,7 @@ const seed = async () => {
     );
     console.log(`✅ Created ${createdUsers.length} users`);
 
-    // Create rooms
+   
     const rooms = [
       {
         name: 'Innovation Lab',
@@ -167,10 +167,10 @@ const seed = async () => {
     ];
 
     const createdRooms = await Room.insertMany(rooms);
-    console.log(`✅ Created ${createdRooms.length} rooms`);
+    console.log(` Created ${createdRooms.length} rooms`);
 
-    console.log('\n🎉 Database seeded successfully!');
-    console.log('\n📋 Login Credentials:');
+    console.log('\n Database seeded successfully!');
+    console.log('\n Login Credentials:');
     console.log('  Admin:   admin@college.edu     / admin123');
     console.log('  Faculty: prof.sharma@college.edu / faculty123');
     console.log('  Faculty: prof.mehta@college.edu  / faculty123');
@@ -180,7 +180,7 @@ const seed = async () => {
 
     process.exit(0);
   } catch (error) {
-    console.error('❌ Seed error:', error.message);
+    console.error(' Seed error:', error.message);
     process.exit(1);
   }
 };

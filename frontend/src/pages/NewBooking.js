@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import api from '../utils/api';
 import '../styles/BookingForm.css';
+import { MdLocationOn, MdPeople, MdLabel } from 'react-icons/md';
+import { FaBuilding } from 'react-icons/fa';
 
 const typeLabels = {
   classroom: 'Classroom', seminar_hall: 'Seminar Hall',
@@ -212,9 +214,9 @@ const NewBooking = () => {
               <div className="bri-name">{selectedRoom.name}</div>
               <div className="bri-number">{selectedRoom.roomNumber}</div>
               <div className="bri-meta">
-                <div><span>📍</span> {selectedRoom.building}, Floor {selectedRoom.floor}</div>
-                <div><span>👥</span> Capacity: {selectedRoom.capacity}</div>
-                <div><span>🏷️</span> {typeLabels[selectedRoom.type]}</div>
+                <div><MdLocationOn size={16} color="#f97316" /> {selectedRoom.building}, Floor {selectedRoom.floor}</div>
+                <div><MdPeople size={16} color="#f97316" /> Capacity: {selectedRoom.capacity}</div>
+                <div><MdLabel size={16} color="#f97316" /> {typeLabels[selectedRoom.type]}</div>
               </div>
               {selectedRoom.amenities?.length > 0 && (
                 <div className="bri-amenities">
@@ -231,7 +233,7 @@ const NewBooking = () => {
             </div>
           ) : (
             <div className="card" style={{ textAlign: 'center', color: 'var(--gray-400)', padding: '40px 20px' }}>
-              <p style={{ fontSize: '2rem' }}>🏢</p>
+              <FaBuilding size={48} color="#d1d5db" />
               <p style={{ marginTop: 10, fontSize: '0.9rem' }}>Select a room to see its details</p>
             </div>
           )}

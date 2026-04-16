@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
-// Verify JWT token
+
 const protect = async (req, res, next) => {
   let token;
 
@@ -31,7 +31,7 @@ const protect = async (req, res, next) => {
   }
 };
 
-// Restrict to specific roles
+
 const restrictTo = (...roles) => {
   return (req, res, next) => {
     if (!roles.includes(req.user.role)) {

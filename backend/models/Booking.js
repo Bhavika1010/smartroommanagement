@@ -61,7 +61,7 @@ const bookingSchema = new mongoose.Schema({
   timestamps: true
 });
 
-// Compound index for conflict queries
+
 bookingSchema.index({ room: 1, date: 1, status: 1 });
 
 module.exports = mongoose.model('Booking', bookingSchema);

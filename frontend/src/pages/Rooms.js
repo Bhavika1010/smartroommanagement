@@ -1,23 +1,24 @@
 import React, { useState, useEffect } from 'react';
+import { MdMeetingRoom } from 'react-icons/md';
 import api from '../utils/api';
 import RoomCard from '../components/RoomCard';
 
 const roomTypes = [
-  { value: '', label: 'All Types' },
-  { value: 'classroom',       label: 'Classroom' },
-  { value: 'seminar_hall',    label: 'Seminar Hall' },
-  { value: 'lab',             label: 'Lab' },
-  { value: 'conference_room', label: 'Conference Room' },
-  { value: 'auditorium',      label: 'Auditorium' },
+  { value: '',               label: 'All Types' },
+  { value: 'classroom',      label: 'Classroom' },
+  { value: 'seminar_hall',   label: 'Seminar Hall' },
+  { value: 'lab',            label: 'Lab' },
+  { value: 'conference_room',label: 'Conference Room' },
+  { value: 'auditorium',     label: 'Auditorium' },
 ];
 
 const Rooms = () => {
-  const [rooms, setRooms]       = useState([]);
-  const [loading, setLoading]   = useState(true);
-  const [error, setError]       = useState('');
-  const [search, setSearch]     = useState('');
-  const [typeFilter, setType]   = useState('');
-  const [capFilter, setCap]     = useState('');
+  const [rooms, setRooms]     = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError]     = useState('');
+  const [search, setSearch]   = useState('');
+  const [typeFilter, setType] = useState('');
+  const [capFilter, setCap]   = useState('');
 
   useEffect(() => { fetchRooms(); }, [typeFilter, capFilter]);
 
@@ -48,7 +49,9 @@ const Rooms = () => {
       <div className="page-header">
         <div>
           <h1 className="page-title">Available Rooms</h1>
-          <p className="page-subtitle">{rooms.length} room{rooms.length !== 1 ? 's' : ''} available for booking</p>
+          <p className="page-subtitle">
+            {rooms.length} room{rooms.length !== 1 ? 's' : ''} available for booking
+          </p>
         </div>
       </div>
 
@@ -66,8 +69,14 @@ const Rooms = () => {
           </div>
           <div style={{ flex: '0 1 160px' }}>
             <label className="form-label">Room Type</label>
-            <select className="form-select" value={typeFilter} onChange={e => setType(e.target.value)}>
-              {roomTypes.map(t => <option key={t.value} value={t.value}>{t.label}</option>)}
+            <select
+              className="form-select"
+              value={typeFilter}
+              onChange={e => setType(e.target.value)}
+            >
+              {roomTypes.map(t => (
+                <option key={t.value} value={t.value}>{t.label}</option>
+              ))}
             </select>
           </div>
           <div style={{ flex: '0 1 150px' }}>
@@ -83,8 +92,8 @@ const Rooms = () => {
           </div>
           <button
             className="btn btn-secondary"
-            onClick={() => { setSearch(''); setType(''); setCap(''); }}
             style={{ alignSelf: 'flex-end' }}
+            onClick={() => { setSearch(''); setType(''); setCap(''); }}
           >
             Clear
           </button>
@@ -97,8 +106,8 @@ const Rooms = () => {
         <div className="loading-wrapper"><div className="spinner" /></div>
       ) : filtered.length === 0 ? (
         <div className="empty-state">
-          <p style={{ fontSize: '2.5rem' }}>🏫</p>
-          <h3>No rooms found</h3>
+          <MdMeetingRoom size={52} color="#d1d5db" />
+          <h3 style={{ marginTop: 12 }}>No rooms found</h3>
           <p>Try adjusting your search or filters.</p>
         </div>
       ) : (

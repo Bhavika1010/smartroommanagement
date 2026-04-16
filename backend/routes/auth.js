@@ -4,16 +4,15 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const { protect } = require('../middleware/auth');
 
-// Generate JWT
+
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: '7d'
   });
 };
 
-// @route   POST /api/auth/login
-// @desc    Login user
-// @access  Public
+
+
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -22,7 +21,7 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ message: 'Please provide email and password.' });
     }
 
-    // Find user and include password
+    
     const user = await User.findOne({ email: email.toLowerCase() }).select('+password');
 
     if (!user) {
@@ -59,9 +58,7 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// @route   GET /api/auth/me
-// @desc    Get current user profile
-// @access  Private
+
 router.get('/me', protect, async (req, res) => {
   try {
     const user = await User.findById(req.user._id);

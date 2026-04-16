@@ -5,7 +5,7 @@ const api = axios.create({
   timeout: 10000,
 });
 
-// Request interceptor - add token if present
+
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
@@ -17,7 +17,7 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Response interceptor - handle auth errors
+
 api.interceptors.response.use(
   (response) => response,
   (error) => {
