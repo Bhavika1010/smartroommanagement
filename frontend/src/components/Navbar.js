@@ -21,7 +21,7 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="navbar-inner">
         <NavLink to="/dashboard" className="navbar-brand" onClick={() => setMenuOpen(false)}>
-          <div className="navbar-logo">SR</div>
+         
           <span className="navbar-brand-name">Smart<span>Room</span></span>
         </NavLink>
 

@@ -43,7 +43,6 @@ const Login = () => {
     <div className="login-page">
       <div className="login-left">
         <div className="login-brand">
-          <div className="login-logo">SR</div>
           <span className="login-brand-name">Smart<span>Room</span></span>
         </div>
         <h1 className="login-tagline">Manage college rooms<br />with ease.</h1>
@@ -109,7 +108,7 @@ const Login = () => {
               {[
                 { label: 'Admin',   email: 'admin@college.edu',        pass: 'admin123' },
                 { label: 'Faculty', email: 'prof.sharma@college.edu',  pass: 'faculty123' },
-                { label: 'Student', email: 'alice@college.edu',        pass: 'student123' },
+                { label: 'Student', email: 'shalini@college.edu',        pass: 'student123' },
               ].map(d => (
                 <button
                   key={d.label}

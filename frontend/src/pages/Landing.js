@@ -33,7 +33,7 @@ const Landing = () => {
       <header className="landing-header">
         <div className="landing-header-inner">
           <div className="landing-logo">
-            <div className="landing-logo-icon">SR</div>
+           
             <span className="landing-logo-text">Smart<span>Room</span></span>
           </div>
           <button className="btn btn-primary" onClick={() => navigate('/login')}>Sign In</button>
