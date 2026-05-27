@@ -19,7 +19,7 @@ const seed = async () => {
     
     const users = [
       {
-        name: 'Admin User',
+        name: 'Amit Verma',
         email: 'admin@college.edu',
         password: 'admin123',
         role: 'admin',
@@ -45,8 +45,8 @@ const seed = async () => {
         phone: '9800000003'
       },
       {
-        name: 'Alice Johnson',
-        email: 'alice@college.edu',
+        name: 'Shalini Iyer',
+        email: 'shalini@college.edu',
         password: 'student123',
         role: 'student',
         studentId: 'STU2024001',
@@ -54,8 +54,8 @@ const seed = async () => {
         phone: '9800000004'
       },
       {
-        name: 'Bob Williams',
-        email: 'bob@college.edu',
+        name: 'Arjun Nair',
+        email: 'arjun@college.edu',
         password: 'student123',
         role: 'student',
         studentId: 'STU2024002',
@@ -63,8 +63,8 @@ const seed = async () => {
         phone: '9800000005'
       },
       {
-        name: 'Carol Davis',
-        email: 'carol@college.edu',
+        name: 'Neha Kapoor',
+        email: 'neha@college.edu',
         password: 'student123',
         role: 'student',
         studentId: 'STU2024003',
@@ -174,9 +174,9 @@ const seed = async () => {
     console.log('  Admin:   admin@college.edu     / admin123');
     console.log('  Faculty: prof.sharma@college.edu / faculty123');
     console.log('  Faculty: prof.mehta@college.edu  / faculty123');
-    console.log('  Student: alice@college.edu      / student123');
-    console.log('  Student: bob@college.edu        / student123');
-    console.log('  Student: carol@college.edu      / student123');
+    console.log('  Student: shalini@college.edu    / student123');
+    console.log('  Student: arjun@college.edu      / student123');
+    console.log('  Student: neha@college.edu       / student123');
 
     process.exit(0);
   } catch (error) {
