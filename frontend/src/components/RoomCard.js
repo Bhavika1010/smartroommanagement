@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import {
   MdOutlineClass,
   MdMeetingRoom,
@@ -31,6 +32,7 @@ const typeIcons = {
 
 const RoomCard = ({ room, showActions = true }) => {
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   return (
     <div className="room-card">
@@ -98,7 +100,7 @@ const RoomCard = ({ room, showActions = true }) => {
         <p className="room-description">{room.description}</p>
       )}
 
-      {showActions && room.isActive && (
+      {showActions && room.isActive && user?.role !== 'admin' && (
         <div className="room-card-actions">
           <button
             className="btn btn-primary btn-sm"

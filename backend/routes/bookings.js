@@ -89,6 +89,10 @@ router.get('/room/:roomId', protect, async (req, res) => {
 
 router.post('/', protect, async (req, res) => {
   try {
+    if (req.user.role === 'admin') {
+      return res.status(403).json({ message: 'Admins cannot create room bookings.' });
+    }
+
     const { roomId, title, description, date, startTime, endTime, attendees } = req.body;
 
     if (!roomId || !title || !date || !startTime || !endTime) {

@@ -73,10 +73,10 @@ const Dashboard = () => {
   const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
 
   const adminQuickActions = [
-    { icon: <FaBuilding size={22} color="#f97316" />,        title: 'Manage Rooms',     desc: 'Add, edit, or remove rooms',       path: '/admin/rooms' },
-    { icon: <MdListAlt size={24} color="#f97316" />,         title: 'All Bookings',     desc: 'Review pending requests',          path: '/admin/bookings' },
-    { icon: <MdAddCircleOutline size={24} color="#f97316" />,title: 'Add New Room',     desc: 'Register a new room',              path: '/admin/rooms?add=1' },
-    { icon: <MdHourglassEmpty size={24} color="#f97316" />,  title: 'Pending Requests', desc: `${stats?.pending} awaiting review`, path: '/admin/bookings?status=pending' },
+    { icon: <FaBuilding size={22} color="#f97316" />,         title: 'Manage Rooms',     desc: 'Add, edit, or remove rooms',        path: '/admin/rooms' },
+    { icon: <MdListAlt size={24} color="#f97316" />,          title: 'All Bookings',     desc: 'Review pending requests',           path: '/admin/bookings' },
+    { icon: <MdAddCircleOutline size={24} color="#f97316" />, title: 'Add New Room',     desc: 'Register a new room',               path: '/admin/rooms?add=1' },
+    { icon: <MdHourglassEmpty size={24} color="#f97316" />,   title: 'Pending Requests', desc: `${stats?.pending} awaiting review`, path: '/admin/bookings?status=pending' },
   ];
 
   return (
@@ -91,7 +91,11 @@ const Dashboard = () => {
           </p>
         </div>
         <div className="dashboard-quick-actions">
-          <button className="btn btn-primary" onClick={() => navigate('/bookings/new')}>+ New Booking</button>
+          {user.role !== 'admin' && (
+            <button className="btn btn-primary" onClick={() => navigate('/bookings/new')}>
+              + New Booking
+            </button>
+          )}
           <button className="btn btn-secondary" onClick={() => navigate('/rooms')}>View Rooms</button>
         </div>
       </div>
@@ -100,7 +104,7 @@ const Dashboard = () => {
         {user.role === 'admin' ? (
           <>
             <StatCard icon={<FaBuilding size={22} color="#f97316" />}       label="Total Rooms"      value={stats.totalRooms}  color="orange" />
-            <StatCard icon={<MdCheckCircle size={24} color="#16a34a" />}    label="Active Rooms"     value={stats.activeRooms} color="green" />
+            <StatCard icon={<MdCheckCircle size={24} color="#16a34a" />}    label="Active"     value={stats.activeRooms} color="green" />
             <StatCard icon={<MdHourglassEmpty size={24} color="#d97706" />} label="Pending Requests" value={stats.pending}     color="yellow" />
             <StatCard icon={<MdListAlt size={24} color="#2563eb" />}        label="Total Bookings"   value={stats.total}       color="blue" />
           </>
@@ -130,9 +134,11 @@ const Dashboard = () => {
             <MdInbox size={48} color="#d1d5db" />
             <h3 style={{ marginTop: 12 }}>No bookings yet</h3>
             <p>Start by requesting a room booking.</p>
-            <button className="btn btn-primary" style={{ marginTop: 16 }} onClick={() => navigate('/bookings/new')}>
-              Book a Room
-            </button>
+            {user.role !== 'admin' && (
+              <button className="btn btn-primary" style={{ marginTop: 16 }} onClick={() => navigate('/bookings/new')}>
+                Book a Room
+              </button>
+            )}
           </div>
         ) : (
           <div className="recent-bookings">

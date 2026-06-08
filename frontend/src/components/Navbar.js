@@ -36,12 +36,16 @@ const Navbar = () => {
           <NavLink to="/rooms" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`} onClick={() => setMenuOpen(false)}>
             Rooms
           </NavLink>
-          <NavLink to="/bookings/new" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`} onClick={() => setMenuOpen(false)}>
-            Book a Room
-          </NavLink>
-          <NavLink to="/my-bookings" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`} onClick={() => setMenuOpen(false)}>
-            My Bookings
-          </NavLink>
+          {user?.role !== 'admin' && (
+            <>
+              <NavLink to="/bookings/new" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`} onClick={() => setMenuOpen(false)}>
+                Book a Room
+              </NavLink>
+              <NavLink to="/my-bookings" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`} onClick={() => setMenuOpen(false)}>
+                My Bookings
+              </NavLink>
+            </>
+          )}
           {user?.role === 'admin' && (
             <>
               <NavLink to="/admin/rooms" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`} onClick={() => setMenuOpen(false)}>

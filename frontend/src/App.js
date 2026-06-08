@@ -50,7 +50,7 @@ function App() {
           <Route
             path="/bookings/new"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute roles={['student', 'faculty']}>
                 <AppLayout><NewBooking /></AppLayout>
               </ProtectedRoute>
             }
@@ -58,7 +58,7 @@ function App() {
           <Route
             path="/my-bookings"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute roles={['student', 'faculty']}>
                 <AppLayout><MyBookings /></AppLayout>
               </ProtectedRoute>
             }

@@ -14,7 +14,7 @@ const seed = async () => {
    
     await User.deleteMany({});
     await Room.deleteMany({});
-    console.log('🗑️  Cleared existing data');
+    console.log('Cleared existing data');
 
     
     const users = [
@@ -80,7 +80,7 @@ const seed = async () => {
         password: await bcrypt.hash(u.password, 12)
       })))
     );
-    console.log(`✅ Created ${createdUsers.length} users`);
+    console.log(` Created ${createdUsers.length} users`);
 
    
     const rooms = [
