@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { MdMeetingRoom } from 'react-icons/md';
 import api from '../utils/api';
 import RoomCard from '../components/RoomCard';
@@ -20,9 +20,7 @@ const Rooms = () => {
   const [typeFilter, setType] = useState('');
   const [capFilter, setCap]   = useState('');
 
-  useEffect(() => { fetchRooms(); }, [typeFilter, capFilter]);
-
-  const fetchRooms = async () => {
+  const fetchRooms = useCallback(async () => {
     try {
       setLoading(true);
       const params = {};
@@ -35,7 +33,9 @@ const Rooms = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [typeFilter, capFilter]);
+
+  useEffect(() => { fetchRooms(); }, [fetchRooms]);
 
   const filtered = rooms.filter(r =>
     !search ||

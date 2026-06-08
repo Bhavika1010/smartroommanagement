@@ -39,7 +39,7 @@ const AdminRooms = () => {
   useEffect(() => {
     fetchRooms();
     if (searchParams.get('add') === '1') openAdd();
-  }, []);
+  }, [searchParams]);
 
   const fetchRooms = async () => {
     try {

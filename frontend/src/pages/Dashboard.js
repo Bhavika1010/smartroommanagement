@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import {
-  MdMeetingRoom,
   MdCheckCircle,
   MdHourglassEmpty,
   MdListAlt,
@@ -30,9 +29,7 @@ const Dashboard = () => {
   const [recent, setRecent]   = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => { fetchData(); }, []);
-
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       setLoading(true);
       if (user.role === 'admin') {
@@ -65,7 +62,9 @@ const Dashboard = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user]);
+
+  useEffect(() => { fetchData(); }, [fetchData]);
 
   if (loading) return <div className="loading-wrapper"><div className="spinner" /></div>;
 

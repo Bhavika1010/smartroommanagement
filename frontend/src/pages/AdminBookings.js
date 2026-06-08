@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { MdListAlt } from 'react-icons/md';
 import api from '../utils/api';
@@ -16,9 +16,7 @@ const AdminBookings = () => {
   const [rejectModal, setRM]    = useState({ open: false, id: null });
   const [rejectNote, setNote]   = useState('');
 
-  useEffect(() => { fetchBookings(); }, [filter]);
-
-  const fetchBookings = async () => {
+  const fetchBookings = useCallback(async () => {
     try {
       setLoading(true);
       const params = filter ? { status: filter } : {};
@@ -29,7 +27,9 @@ const AdminBookings = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [filter]);
+
+  useEffect(() => { fetchBookings(); }, [fetchBookings]);
 
   const flash = (msg, isError = false) => {
     if (isError) setError(msg); else setMessage(msg);
